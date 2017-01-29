@@ -76,15 +76,20 @@ Start from the root, and go to each level. Searching level by level until we rea
 
 ![bfs](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/bfs.PNG?raw=true)
 
+![bfs_algo](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/bfs_algo.PNG?raw=true)
+
 #### Depth-First Search(DFS)
 
 Start with the root, traverse depth before looking at the neighbor. Search the depth rather than by level. last in first out, Stack(LIFO) . time O(b^m) [bad if m is much larger than d], space O(bm), m - maximum possibility of search space.
 
 ![dfs](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/dfs.PNG?raw=true)
 
+![dfs_algo](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/dfs_algo.PNG?raw=true)
+
 #### Depth-Limited Search(DLS) and Uniform-cost Search(UCS)
 DLS is essentially DFS, with iterative search. For each level, repeat the DFS.
 UCS uses heap data structure. we use BFS to find the shallowest solution. so BFS is modified to prioritize the cost [expand node n with lowest path cost g(n)]. The cost like going to different cities map. uses priority queue
 
 ![dls](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/dls.PNG?raw=true)
+
 ![ucs_algo](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/ucs_algo.PNG?raw=true)
