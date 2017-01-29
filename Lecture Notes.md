@@ -2,7 +2,7 @@
 
 ## Week 2
 
-### Intelligence Agents
+### 2.1 Intelligence Agents
 
 **Agents** - an agent is anything that can be viewed as perceiving its environment through sensors and acting upon that environment through actuators. Its made up of Architecture(hardware of the agent) and Program(mind of the program)
 
@@ -15,7 +15,7 @@
 
 **Environment Types examples
 
-![Enironment Types example](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/environment_types_example.PNG?raw=true)
+![Environment Types example](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/environment_types_example.PNG?raw=true)
 
 **Agent types**
 
@@ -34,3 +34,57 @@
 - utility based agents
 
 ![utility_agent](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/utility_agent.PNG?raw=true)
+
+**Learning agent** - This generalizes all the agents above. Instead of specifying each and every scenario, this will learn.
+
+![learning_agent](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/learning_agent.PNG?raw=true)
+
+Agent internal States can be represented in different ways:
+
+- Atomic representation : each state of the world is a blackbox that has no internal structure. Eg: finding driving route (each state being a city). AI algorithm: markov Chains
+
+- Factored Representation : Each state has some attribute value properties. Eg: GPS location, amount of gas in the tank. AI algorithm: constraint satisfaction, and bayesian networks.
+
+- Structured representation : Relationships between the objects of a state can be explicitly expressed. AI algorithms: first order logic, knowledge based learning, natural language understanding.
+
+### 2.2 Search Agents
+
+#### There are two types of agents
+
+reflex agents - use mapping from states to actions (essentially table look up). lowest level of intelligence
+
+goal based agents - problem solving or planning agents. Agent identifies the action that leads to a goal. Eg: solving a maze.
+
+** Problem solving as search **
+![search_solving](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/search_solving.PNG?raw=true)
+
+** Problem Formulation **
+![problem_formulation](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/problem_formulation.PNG?raw=true)
+* Intelligence Level * (from low to high)
+- reflex agent
+- state based (search agent)
+
+** Search space ** - an abstract configuration represented by a search tree or graph of possible solutions
+![search_space](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/search_space.PNG?raw=true)
+
+### 2.3 Uninformed Search
+Breadth first search, depth first search, depth limited search, iterative deepening search, uniform cost search.
+
+#### Breadth-First Search(BFS)
+
+Start from the root, and go to each level. Searching level by level until we reach the target. use queues(FIFO) to explore the tree. Time and space O(b^d). b - breadth, d - depth
+
+![bfs](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/bfs.PNG?raw=true)
+
+#### Depth-First Search(DFS)
+
+Start with the root, traverse depth before looking at the neighbor. Search the depth rather than by level. last in first out, Stack(LIFO) . time O(b^m) [bad if m is much larger than d], space O(bm), m - maximum possibility of search space.
+
+![dfs](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/dfs.PNG?raw=true)
+
+#### Depth-Limited Search(DLS) and Uniform-cost Search(UCS)
+DLS is essentially DFS, with iterative search. For each level, repeat the DFS.
+UCS uses heap data structure. we use BFS to find the shallowest solution. so BFS is modified to prioritize the cost [expand node n with lowest path cost g(n)]. The cost like going to different cities map. uses priority queue
+
+![dls](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/dls.PNG?raw=true)
+![ucs_algo](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/ucs_algo.PNG?raw=true)
