@@ -93,3 +93,39 @@ UCS uses heap data structure. we use BFS to find the shallowest solution. so BFS
 ![dls](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/dls.PNG?raw=true)
 
 ![ucs_algo](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/ucs_algo.PNG?raw=true)
+
+***
+## Week 3
+
+### 3.1 Heuristics and Greedy Search Algorithm
+
+#### Greedy Search
+
+The search is based on the shortest straight line distance/cost(h(n)) to the goal. The search is based on the cost, might not always be the efficient one.
+
+![greedy_search](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/greedy_search.PNG?raw=true)
+
+![greedy_algo](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/greedy_algo.PNG?raw=true)
+
+### 3.2 A* search
+- minimize the total estimated solution cost (f(n))
+- combines :
+  - g(n)  : cost to reach node n
+  - h(n)  : cost to get from n to goal
+  - f(n)  : g(n) + h(n) - the estimated cost of the cheapest solution
+
+![a_algo](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/a_algo.PNG?raw=true)
+
+As long as the heuristic is admissible then an optimal solution can be reached.
+
+![admissible_heuristic](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/admissible_heuristic.PNG?raw=true)
+
+### 3.4 Local Search
+- Tree climb algorigthm
+  climbing a hill and reaching a global peak.
+- Genetic algorightm
+  finding a solution based on natural selection. Solution chosen from two parents and the result is mutated to obtain the optimal solution.
+  ![genetic_algo](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/genetic_algo.PNG?raw=true)
+
+  ***
+  
