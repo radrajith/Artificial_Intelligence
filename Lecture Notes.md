@@ -128,4 +128,3 @@ As long as the heuristic is admissible then an optimal solution can be reached.
   ![genetic_algo](https://github.com/radrajith/Artificial_Intelligence/blob/master/images/genetic_algo.PNG?raw=true)
 
   ***
-  
