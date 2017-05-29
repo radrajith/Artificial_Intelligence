@@ -34,18 +34,16 @@ def arrayConv(nums):
 def bfs(nums):  #breadth first search
     global index_0, nodes_expanded
     max_search_depth = 0
-    q = MyQueue()
+    frontier = MyQueue()
     past = MyQueue()
     dummy = []
-    q.enqueue([nums,index_0, -1, 'center'])
+    frontier.enqueue([nums,index_0, -1, 'center'])
     past.enqueue([nums,index_0, -1, 'center'])
-    while(q.isEmpty() == False):
-        parent = q.dequeue()
+    while(frontier.isEmpty() == False):
+        parent = frontier.dequeue()
         puzzle = parent[0]
         direction_Parent = parent[3]
-        #check if the puzzle is not empty and solved
-        if(puzzle!=-1 and check(puzzle)==True):
-            return [[puzzle,index_0,parent,parent[3]], max_search_depth]
+
         #if the puzzle is not empty, then create its children up, down, left, right
         #create up child and check if the configuration already exists, if not then
         # add 'up' the path and enter it in the queue.
@@ -56,6 +54,10 @@ def bfs(nums):  #breadth first search
             direction = 'up'
             if(child !=-1):
                 dummy.append([child, index_0, parent, direction])
+                #check if the puzzle is not empty and solved
+                if(check(child)==True):
+                    return [[puzzle,index_0,parent,direction], max_search_depth]
+
         #create down child and check if the configuration already exists, if not then
         # add 'down' the path and enter it in the queue.
         if(direction_Parent!='up'):
@@ -65,6 +67,10 @@ def bfs(nums):  #breadth first search
             direction = 'down'
             if(child !=-1):
                 dummy.append([child, index_0, parent, direction])
+                #check if the puzzle is not empty and solved
+                if(check(child)==True):
+                    return [[puzzle,index_0,parent,direction], max_search_depth]
+
         #create left child and check if the configuration already exists, if not then
         # add 'left' the path and enter it in the queue.
         if(direction_Parent!='right'):
@@ -74,6 +80,10 @@ def bfs(nums):  #breadth first search
             direction = 'left'
             if(child !=-1):
                 dummy.append([child, index_0, parent, direction])
+                #check if the puzzle is not empty and solved
+                if(check(child)==True):
+                    return [[puzzle,index_0,parent,direction], max_search_depth]
+
         #create right child and check if the configuration already exists, if not then
         # add 'right' the path and enter it in the queue.
         if(direction_Parent!='left'):
@@ -83,11 +93,15 @@ def bfs(nums):  #breadth first search
             direction = 'right'
             if(child !=-1):
                 dummy.append([child, index_0, parent, direction])
+                #check if the puzzle is not empty and solved
+                if(check(child)==True):
+                    return [[puzzle,index_0,parent,direction], max_search_depth]
+
+        #CHECK FOR DUPLICATES and add the unique ones to the queue past and
         children = pastCheck(past, dummy)
-        while(len(children)!=0):
-            temp = children.pop()
-            past.enqueue(temp)
-            q.enqueue(temp)
+        for k in range(0,len(children)):
+            past.enqueue(children[k])
+            frontier.enqueue(children[k])
     return [-1, 0]  #if the end is reached take out the next in the queue.
 #################################################
 # check if the child already exisits in the queue.
