@@ -44,19 +44,19 @@ def bfs(nums):  #breadth first search
         puzzle = parent[0]
         direction_Parent = parent[3]
 
+        if(puzzle!=-1 and check(puzzle)==True):
+            return [[puzzle,index_0,parent,direction], max_search_depth]
+        nodes_expanded+=1
         #if the puzzle is not empty, then create its children up, down, left, right
         #create up child and check if the configuration already exists, if not then
         # add 'up' the path and enter it in the queue.
         if(direction_Parent!='down'):
             index_0 = parent[1]
-            nodes_expanded+=1
+
             child = up(puzzle)
             direction = 'up'
             if(child !=-1):
                 dummy.append([child, index_0, parent, direction])
-                #check if the puzzle is not empty and solved
-                if(check(child)==True):
-                    return [[puzzle,index_0,parent,direction], max_search_depth]
 
         #create down child and check if the configuration already exists, if not then
         # add 'down' the path and enter it in the queue.
@@ -67,9 +67,6 @@ def bfs(nums):  #breadth first search
             direction = 'down'
             if(child !=-1):
                 dummy.append([child, index_0, parent, direction])
-                #check if the puzzle is not empty and solved
-                if(check(child)==True):
-                    return [[puzzle,index_0,parent,direction], max_search_depth]
 
         #create left child and check if the configuration already exists, if not then
         # add 'left' the path and enter it in the queue.
@@ -80,9 +77,6 @@ def bfs(nums):  #breadth first search
             direction = 'left'
             if(child !=-1):
                 dummy.append([child, index_0, parent, direction])
-                #check if the puzzle is not empty and solved
-                if(check(child)==True):
-                    return [[puzzle,index_0,parent,direction], max_search_depth]
 
         #create right child and check if the configuration already exists, if not then
         # add 'right' the path and enter it in the queue.
@@ -93,9 +87,6 @@ def bfs(nums):  #breadth first search
             direction = 'right'
             if(child !=-1):
                 dummy.append([child, index_0, parent, direction])
-                #check if the puzzle is not empty and solved
-                if(check(child)==True):
-                    return [[puzzle,index_0,parent,direction], max_search_depth]
 
         #CHECK FOR DUPLICATES and add the unique ones to the queue past and
         children = pastCheck(past, dummy)
