@@ -50,43 +50,43 @@ def bfs(nums):  #breadth first search
         #if the puzzle is not empty, then create its children up, down, left, right
         #create up child and check if the configuration already exists, if not then
         # add 'up' the path and enter it in the queue.
-        #if(direction_Parent!='down'):
-        index_0 = parent[1]
+        if(direction_Parent!='down'):
+            index_0 = parent[1]
 
-        child = up(puzzle)
-        direction = 'up'
-        if(child !=-1):
-            dummy.append([child, index_0, parent, direction])
+            child = up(puzzle)
+            direction = 'up'
+            if(child !=-1):
+                dummy.append([child, index_0, parent, direction])
 
         #create down child and check if the configuration already exists, if not then
         # add 'down' the path and enter it in the queue.
-        #if(direction_Parent!='up'):
-        index_0 = parent[1]
-        #nodes_expanded+=1
-        child = down(puzzle)
-        direction = 'down'
-        if(child !=-1):
-            dummy.append([child, index_0, parent, direction])
+        if(direction_Parent!='up'):
+            index_0 = parent[1]
+            #nodes_expanded+=1
+            child = down(puzzle)
+            direction = 'down'
+            if(child !=-1):
+                dummy.append([child, index_0, parent, direction])
 
         #create left child and check if the configuration already exists, if not then
         # add 'left' the path and enter it in the queue.
-        #if(direction_Parent!='right'):
-        index_0 = parent[1]
-        #nodes_expanded+=1
-        child = left(puzzle)
-        direction = 'left'
-        if(child !=-1):
-            dummy.append([child, index_0, parent, direction])
+        if(direction_Parent!='right'):
+            index_0 = parent[1]
+            #nodes_expanded+=1
+            child = left(puzzle)
+            direction = 'left'
+            if(child !=-1):
+                dummy.append([child, index_0, parent, direction])
 
         #create right child and check if the configuration already exists, if not then
         # add 'right' the path and enter it in the queue.
-        #if(direction_Parent!='left'):
-        index_0 = parent[1]
-        #nodes_expanded+=1
-        child = right(puzzle)
-        direction = 'right'
-        if(child !=-1):
-            dummy.append([child, index_0, parent, direction])
+        if(direction_Parent!='left'):
+            index_0 = parent[1]
+            #nodes_expanded+=1
+            child = right(puzzle)
+            direction = 'right'
+            if(child !=-1):
+                dummy.append([child, index_0, parent, direction])
 
         #CHECK FOR DUPLICATES and add the unique ones to the queue past and
         children = pastCheck(past, dummy)
@@ -98,7 +98,7 @@ def bfs(nums):  #breadth first search
 # check if the child already exisits in the queue.
 def pastCheck(past, child):
     #for i in range(0,len(past)):
-    for j in range(len(child)-1,-1,-1):
+    for j in range(len(child)-1,-1,-1): #example:100 to 0
         if(child[j][0] in past):
             child.remove(child[j])
     return child
@@ -107,65 +107,82 @@ def pastCheck(past, child):
 def dfs(nums):
     global index_0, nodes_expanded
     max_search_depth =0
-    count =0
-    stack = Stack()
-    past = Stack()
-    stack.push([nums,index_0, -1,'center', 0])
-    while(stack.isEmpty()==False):
-        parent = stack.pop()
-        count = parent[4]
-        past.push(parent)
+    depthCount =0
+    frontier = Stack()
+    past = []
+    frontier.push([nums,index_0, -1,'center', depthCount])
+    past.append(nums)
+    while(frontier.isEmpty()==False):
+        parent = frontier.pop()
+        depthCount = parent[4]
+        direction_Parent = parent[3]
         puzzle = parent[0]
+        dummy = []
         #check if the puzzle is not empty and solved
         if(puzzle!=-1 and check(puzzle)==True):
-            return [puzzle, max_search_depth]
+            return [[puzzle,index_0,parent,direction], max_search_depth]
+        nodes_expanded+=1
+        depthCount+=1
         #if the puzzle is not empty, then create its children up, down, left, right
-        if(puzzle!=-1):
-            count+=1
-            #create right child and check if the configuration already exists, if not then
-            # add 'right' the path and enter it in the queue.
+
+        #create right child and check if the configuration already exists, if not then
+        # add 'right' the path and enter it in the queue.
+        if(direction_Parent!='left'):
             index_0 = parent[1]
-            nodes_expanded+=1
+            #nodes_expanded+=1
             child = right(puzzle)
             direction = 'right'
-            if (child!=-1 and pastCheck(past, child) == False):
-                stack.push([child, index_0, parent, direction, count])
-            #create left child and check if the configuration already exists, if not then
-            # add 'left' the path and enter it in the queue.
+            if(child !=-1):
+                dummy.append([child, index_0, parent, direction, depthCount])
+
+        #create left child and check if the configuration already exists, if not then
+        # add 'left' the path and enter it in the queue.
+        if(direction_Parent!='right'):
             index_0 = parent[1]
-            nodes_expanded+=1
+            #nodes_expanded+=1
             child = left(puzzle)
             direction = 'left'
-            if (child!=-1 and pastCheck(past, child) == False):
-                stack.push([child, index_0, parent, direction, count])
-            #create down child and check if the configuration already exists, if not then
-            # add 'down' the path and enter it in the queue.
+            if(child !=-1):
+                dummy.append([child, index_0, parent, direction, depthCount])
+
+        #create down child and check if the configuration already exists, if not then
+        # add 'down' the path and enter it in the queue.
+        if(direction_Parent!='up'):
             index_0 = parent[1]
-            nodes_expanded+=1
+            #nodes_expanded+=1
             child = down(puzzle)
             direction = 'down'
-            if (child!=-1 and pastCheck(past, child) == False):
-                stack.push([child, index_0, parent, direction, count])
-            #create up child and check if the configuration already exists, if not then
-            # add 'up' the path and enter it in the queue.
+            if(child !=-1):
+                dummy.append([child, index_0, parent, direction, depthCount])
+
+        #create up child and check if the configuration already exists, if not then
+        # add 'up' the path and enter it in the queue.
+        if(direction_Parent!='down'):
             index_0 = parent[1]
-            nodes_expanded+=1
             child = up(puzzle)
             direction = 'up'
-            if (child!=-1 and pastCheck(past, child) == False):
-                stack.push([child, index_0, parent, direction, count])
-        else:
-            if(count>max_search_depth):
-                max_search_depth = count
+            if(child !=-1):
+                dummy.append([child, index_0, parent, direction, depthCount])
+
+
+        #CHECK FOR DUPLICATES and add the unique ones to the queue past and
+        children = pastCheck(past, dummy)
+        for k in range(0,len(children)):
+            past.append(children[k][0])
+            frontier.push(children[k])
+        if(depthCount>max_search_depth):
+            max_search_depth = depthCount
 
     return [-1, 0]  #if the end is reached take out the next in the queue.
 
 def ast(nums):
+
     return;
+def heuristics(nums, change):
+    for i in range(0, len(change)):
+        if(1 in change):
 
 
-def ida(nums):
-    return;
 
 def up(puzzle):
     nums = puzzle[:]
@@ -254,8 +271,8 @@ if len(args)>=2:
         ans = (bfs(board))
         stat(ans[0], ans[1])
     elif (args[1]=="dfs"):
-        ans = stat(dfs(board))
+        ans = (dfs(board))
         stat(ans[0], ans[1])
     elif (args[1]=="ast"):
-        ans = stat(ast(board))
+        ans = (ast(board))
         stat(ans[0], ans[1])
