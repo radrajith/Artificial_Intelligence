@@ -35,77 +35,72 @@ def bfs(nums):  #breadth first search
     global index_0, nodes_expanded
     max_search_depth = 0
     frontier = MyQueue()
-    past = MyQueue()
-    dummy = []
+    past = []
+
     frontier.enqueue([nums,index_0, -1, 'center'])
-    past.enqueue([nums,index_0, -1, 'center'])
+    past.append(nums)
     while(frontier.isEmpty() == False):
         parent = frontier.dequeue()
         puzzle = parent[0]
         direction_Parent = parent[3]
-
+        dummy = []
         if(puzzle!=-1 and check(puzzle)==True):
             return [[puzzle,index_0,parent,direction], max_search_depth]
         nodes_expanded+=1
         #if the puzzle is not empty, then create its children up, down, left, right
         #create up child and check if the configuration already exists, if not then
         # add 'up' the path and enter it in the queue.
-        if(direction_Parent!='down'):
-            index_0 = parent[1]
+        #if(direction_Parent!='down'):
+        index_0 = parent[1]
 
-            child = up(puzzle)
-            direction = 'up'
-            if(child !=-1):
-                dummy.append([child, index_0, parent, direction])
+        child = up(puzzle)
+        direction = 'up'
+        if(child !=-1):
+            dummy.append([child, index_0, parent, direction])
 
         #create down child and check if the configuration already exists, if not then
         # add 'down' the path and enter it in the queue.
-        if(direction_Parent!='up'):
-            index_0 = parent[1]
-            #nodes_expanded+=1
-            child = down(puzzle)
-            direction = 'down'
-            if(child !=-1):
-                dummy.append([child, index_0, parent, direction])
+        #if(direction_Parent!='up'):
+        index_0 = parent[1]
+        #nodes_expanded+=1
+        child = down(puzzle)
+        direction = 'down'
+        if(child !=-1):
+            dummy.append([child, index_0, parent, direction])
 
         #create left child and check if the configuration already exists, if not then
         # add 'left' the path and enter it in the queue.
-        if(direction_Parent!='right'):
-            index_0 = parent[1]
-            #nodes_expanded+=1
-            child = left(puzzle)
-            direction = 'left'
-            if(child !=-1):
-                dummy.append([child, index_0, parent, direction])
+        #if(direction_Parent!='right'):
+        index_0 = parent[1]
+        #nodes_expanded+=1
+        child = left(puzzle)
+        direction = 'left'
+        if(child !=-1):
+            dummy.append([child, index_0, parent, direction])
 
         #create right child and check if the configuration already exists, if not then
         # add 'right' the path and enter it in the queue.
-        if(direction_Parent!='left'):
-            index_0 = parent[1]
-            #nodes_expanded+=1
-            child = right(puzzle)
-            direction = 'right'
-            if(child !=-1):
-                dummy.append([child, index_0, parent, direction])
+        #if(direction_Parent!='left'):
+        index_0 = parent[1]
+        #nodes_expanded+=1
+        child = right(puzzle)
+        direction = 'right'
+        if(child !=-1):
+            dummy.append([child, index_0, parent, direction])
 
         #CHECK FOR DUPLICATES and add the unique ones to the queue past and
         children = pastCheck(past, dummy)
         for k in range(0,len(children)):
-            past.enqueue(children[k])
+            past.append(children[k][0])
             frontier.enqueue(children[k])
     return [-1, 0]  #if the end is reached take out the next in the queue.
 #################################################
 # check if the child already exisits in the queue.
 def pastCheck(past, child):
-    val = past.size()
-    for i in range(0,val):
-        if(len(child)==0):
-            break
-        parent = past.dequeue()
-        past.enqueue(parent)
-        for j in range(0, len(child)):
-            if(j<len(child) and child[j][0]==parent[0]):
-                child.remove(child[j])
+    #for i in range(0,len(past)):
+    for j in range(len(child)-1,-1,-1):
+        if(child[j][0] in past):
+            child.remove(child[j])
     return child
 
 
@@ -246,7 +241,7 @@ def stat(solution, max_search_depth):
     file.write("\nnodes_expanded: %d"%(nodes_expanded))
     file.write("\nsearch_depth: %d"%(cost))
     file.write("\nmax_search_depth: %d"%(max_search_depth))
-    file.write("\nrunning_time: %d"%(time.time()-start))
+    file.write("\nrunning_time: %f"%(time.time()-start))
     #file.write("max_ram_usage: %d"%(max_ram_usage))
 #############################################
 #arguments from the command line is analyzed and appropriate

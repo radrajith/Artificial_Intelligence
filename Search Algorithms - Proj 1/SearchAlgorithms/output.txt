@@ -1,6 +1,6 @@
-path_to_goal: up,left,left
-cost_of_path: 3
-nodes_expanded: 10
-search_depth: 3
-max_search_depth: 10
-running_time: 0
+path_to_goal: left,up,up,left,down,right,down,left,up,right,right,up,left,left,down,right,right,up,left,down,down,right,up,left,up,left
+cost_of_path: 26
+nodes_expanded: 166786
+search_depth: 26
+max_search_depth: 26
+running_time: 1688.352000
